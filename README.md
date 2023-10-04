@@ -49,3 +49,62 @@ export default defineConfig({
   plugins: [react(), eslint()],
 });
 ```
+
+# Add React Router
+
+```
+npm i react-router-dom
+```
+
+### How to set up BrowserRouter with routes
+
+```js
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Product from './pages/Product';
+import Pricing from './pages/Pricing';
+import Homepage from './pages/Homepage';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="product" element={<Product />} />
+        <Route path="pricing" element={<Pricing />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+#### BrowserRouter works a little like Routeroutlet in Angular
+
+- if content above the router outlet - the above content will always display on the page above the components displayed in the BrowserRouter section
+
+```js
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Product from './pages/Product';
+import Pricing from './pages/Pricing';
+import Homepage from './pages/Homepage';
+
+function App() {
+  return (
+    <div>
+      <h2>Above browser Router - displays on all routes</h2>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="product" element={<Product />} />
+          <Route path="pricing" element={<Pricing />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+```
+
+#### In general - the App will handle the Routing only and let other components handle what should be displayed on each route.
