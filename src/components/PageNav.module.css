@@ -8,6 +8,10 @@
   justify-content: start;
 }
 
+.nav :global(.active) {
+  color: goldenrod;
+}
+
 /* to create a global class with no ui unique suffix use :global
  now you can just add className="test" and it will apply the class 
  - even though this is in the Pagenav module css - test class will work anywhere in the app now */

@@ -151,3 +151,17 @@ export default PageNav;
   background-color: chartreuse;
 }
 ```
+
+### Perfect Use case is Router NavLink that attaches active class to the current route.
+
+- css module would add unique suffix to .active if we tried to style the active class with:
+  .nav .active
+- using the :global will leave the .active class without the suffix
+
+```css
+.nav :global(.active) {
+  color: goldenrod;
+}
+```
+
+#### Normally, of course, truly global styles would go in the global .css file
