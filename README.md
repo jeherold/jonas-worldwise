@@ -165,3 +165,70 @@ export default PageNav;
 ```
 
 #### Normally, of course, truly global styles would go in the global .css file
+
+## Nested Routes
+
+- any routes nested inside <Route> will be nested
+- use index to let the React Router know what to display when no child routes match
+- Example - app/cities will show cities - app/counties will show countries - app.form will show the form
+  app/ with no matching children will display the index element
+
+```jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Product from './pages/Product';
+import Pricing from './pages/Pricing';
+import HomePage from './pages/Homepage';
+import PageNotFound from './pages/PageNotFound';
+import AppLayout from './pages/AppLayout';
+import Login from './pages/Login';
+import CityList from './components/CityList';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<HomePage />} />
+        <Route path="product" element={<Product />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="login" element={<Login />} />
+        <Route path="app" element={<AppLayout />}>
+          <Route index element={<CityList />} />
+          <Route path="cities" element={<CityList />} />
+          <Route path="countries" element={<p>Countries</p>} />
+          <Route path="form" element={<p>Form</p>} />
+        </Route>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+## Router Outlet
+
+- use Router Outlet component for positioning nested routes on the parent component
+
+```js
+import AppNav from './AppNav';
+import Logo from '../components/Logo';
+import styles from './Sidebar.module.css';
+import Footer from './Footer';
+import { Outlet } from 'react-router-dom';
+
+function Sidebar() {
+  return (
+    <div className={styles.sidebar}>
+      <Logo />
+      <AppNav />
+
+      <Outlet />
+
+      <Footer />
+    </div>
+  );
+}
+
+export default Sidebar;
+```
