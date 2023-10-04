@@ -1,17 +1,19 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import styles from './PageNav.module.css';
+// import './PageNav.css';
 
 function PageNav() {
   return (
-    <nav>
-      <ul>
+    <nav className={styles.nav}>
+      <ul className="test">
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <Link to="/pricing">Pricing</Link>
+          <NavLink to="/pricing">Pricing</NavLink>
         </li>
         <li>
-          <Link to="/product">Product</Link>
+          <NavLink to="/product">Product</NavLink>
         </li>
       </ul>
     </nav>

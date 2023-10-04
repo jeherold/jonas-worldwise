@@ -113,4 +113,41 @@ export default App;
 <Link to="/pricing">Pricing</Link>
 ```
 
+#### to take advantage of the built in NavLink features of React Router - it will add active class to active page
+
+```js
+import { NavLink } from 'react-router-dom';
+
+function PageNav() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/pricing">Pricing</NavLink>
+        </li>
+        <li>
+          <NavLink to="/product">Product</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default PageNav;
+```
+
 #### In general - the App will handle the Routing only and let other components handle what should be displayed on each route.
+
+# CSS Module
+
+```css
+/* to create a global class with no ui unique suffix use :global
+ now you can just add className="test" and it will apply the class 
+ - even though this is in the Pagenav module css - test class will work anywhere in the app now */
+:global(.test) {
+  background-color: chartreuse;
+}
+```
