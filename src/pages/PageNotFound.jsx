@@ -1,12 +1,12 @@
 import PageNav from '../components/Pagenav';
 
-function HomePage() {
+function PageNotFound() {
   return (
     <div>
       <PageNav />
-      <h2>Home</h2>
+      <h2>Page not found.</h2>
     </div>
   );
 }
 
-export default HomePage;
+export default PageNotFound;

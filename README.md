@@ -107,4 +107,10 @@ function App() {
 export default App;
 ```
 
+#### And proper way to set up a link with the Router Link comp
+
+```js
+<Link to="/pricing">Pricing</Link>
+```
+
 #### In general - the App will handle the Routing only and let other components handle what should be displayed on each route.
