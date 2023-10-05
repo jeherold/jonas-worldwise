@@ -232,3 +232,50 @@ function Sidebar() {
 
 export default Sidebar;
 ```
+
+### useNavigate() in earlier versions was called useHistory
+
+- you can pass in a param to set back how many
+- define the number of steps you want to go forward in the browsers historyusing integer
+
+```jsx
+<div className={styles.buttons}>
+  <Button type="primary">Add</Button>
+  <Button type="back" onClick={navigate(1)}>
+    &larr; Forward in history 1
+  </Button>
+  <Button type="back" onClick={navigate(2)}>
+    &larr; Forward in history 2
+  </Button>
+</div>
+```
+
+- define the number of steps you want to go back in the browsers history with -integer
+
+```jsx
+<div className={styles.buttons}>
+  <Button type="primary">Add</Button>
+  <Button type="back" onClick={navigate(-1)}>
+    &larr; Back in history 1
+  </Button>
+  <Button type="back" onClick={navigate(-2)}>
+    &larr; Back in history 2
+  </Button>
+</div>
+```
+
+- if inside a form - e.preventDefault() to prevent form submission
+
+```jsx
+<div className={styles.buttons}>
+  <Button
+    type="back"
+    onClick={(e) => {
+      e.preventDefault();
+      navigate(-1);
+    }}
+  >
+    &larr; Back in history 1
+  </Button>
+</div>
+```
