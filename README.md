@@ -279,3 +279,55 @@ export default Sidebar;
   </Button>
 </div>
 ```
+
+### useNavigate() hook is an imperative approach
+
+### Import Navigate Component - declarative approach (that React Router Dom gives us) use case in nested routes
+
+#### More decalrative way of using <Navigate /> when useNavigate() hook wont really work
+
+- see following example
+
+#### Navigate component is not in use much anymore since useNavigate() hook
+
+- example when the index route and one of the child routes point to same component
+
+So instead of this setup that the index route takes to here: http://localhost:5173/app
+
+```jsx
+<Route path="app" element={<AppLayout />}>
+  <Route index element={<CityList cities={cities} isLoading={isLoading} />} />
+  <Route
+    path="cities"
+    element={<CityList cities={cities} isLoading={isLoading} />}
+  />
+  <Route path="cities/:id" element={<City />} />
+  <Route
+    path="countries"
+    element={<CountryList cities={cities} isLoading={isLoading} />}
+  />
+  <Route path="form" element={<Form />} />
+</Route>
+```
+
+Do this in the indexed route to do more of a redirect so we get this: http://localhost:5173/app/cities
+
+- declaring where we want this to navigate/redirect to
+- which is what we wanted to have focus when landing on AppLayout initially
+- use replace to replace the current element in the history stack so the back button still works as expected
+
+```jsx
+<Route path="app" element={<AppLayout />}>
+  <Route index element={<Navigate replace to="cities" />} />
+  <Route
+    path="cities"
+    element={<CityList cities={cities} isLoading={isLoading} />}
+  />
+  <Route path="cities/:id" element={<City />} />
+  <Route
+    path="countries"
+    element={<CountryList cities={cities} isLoading={isLoading} />}
+  />
+  <Route path="form" element={<Form />} />
+</Route>
+```
