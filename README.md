@@ -331,3 +331,11 @@ Do this in the indexed route to do more of a redirect so we get this: http://loc
   <Route path="form" element={<Form />} />
 </Route>
 ```
+
+# useEffect - see slides for perfect explanation of useEffect
+
+- used to synchronize 2 systems
+- it is used to communicate with Apis etc and is mostly considered a synchronization mechanism
+- typical use cases
+- fetch data from an external source (api graphQl etc)
+- synchronize map data as we used with leaflet setting position on component mounting or updates to lat/lng
