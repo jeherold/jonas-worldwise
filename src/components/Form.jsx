@@ -95,7 +95,7 @@ function Form() {
       position: { lat, lng },
     };
 
-    /** since in an async we can await createCity before navigating back to cities */
+    /** since in an async we can await createCity operation before navigating back to cities */
     await createCity(newCity);
     /** programatically navigate back to cities
      *  where we should see the newly added city */

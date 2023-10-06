@@ -38,7 +38,7 @@ function CitiesProvider({ children }) {
     }
   }
 
-  /** Specify options object since this will be a POST */
+  /** Specify options object since this will be a POST - mutate the remote/server state (db) */
   async function createCity(newCity) {
     try {
       setIsLoading(true);
@@ -52,7 +52,8 @@ function CitiesProvider({ children }) {
       const data = await res.json();
       /** check the result of the POST */
       console.log(data);
-      /** will do this later with react queries
+      /** Mutate the UI state to be in sync without needing to refetch the data
+       *  - will do this later with react queries
        *  but for this small app and demo this will work to keep data in sync */
       setCities((cities) => [...cities, data]);
     } catch {
