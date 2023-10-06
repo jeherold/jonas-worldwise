@@ -561,5 +561,4 @@ export { CitiesProvider, useCities };
 ## FakeAuthContext.js
 
 - Using Fake Authentication with one user for this project
-
-### Will implement real authentication in a future lecture.
+- Will implement real authentication in a future lecture.
