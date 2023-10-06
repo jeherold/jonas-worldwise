@@ -38,6 +38,30 @@ function CitiesProvider({ children }) {
     }
   }
 
+  /** Specify options object since this will be a POST */
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: 'POST',
+        body: JSON.stringify(newCity),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      /** check the result of the POST */
+      console.log(data);
+      /** will do this later with react queries
+       *  but for this small app and demo this will work to keep data in sync */
+      setCities((cities) => [...cities, data]);
+    } catch {
+      alert('There was an error creating new city...');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <CitiesContext.Provider
       value={{
@@ -45,6 +69,7 @@ function CitiesProvider({ children }) {
         isLoading,
         currentCity,
         getCity,
+        createCity,
       }}
     >
       {children}

@@ -18,7 +18,6 @@ const formatDate = (date) =>
 function City() {
   /** get the id from the url */
   const { id } = useParams();
-  console.log(id);
   const { getCity, currentCity, isLoading } = useCities();
 
   /** useEffect to get the city from our context when the comp mounts */

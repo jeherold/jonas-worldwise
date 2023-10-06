@@ -10,6 +10,7 @@ import Button from './Button';
 import BackButton from './BackButton';
 import Message from './Message';
 import Spinner from './Spinner';
+import { useCities } from '../contexts/CitiesContext';
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -23,6 +24,7 @@ const BASE_URL = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
 
 function Form() {
   const [lat, lng] = useUrlPosition();
+  const { createCity } = useCities();
 
   /** we are using useState alot and usereducer might make sense but setup is for demonstration */
   const [isLoadingGeocoding, setIsLoadingGeocoding] = useState(false);
@@ -72,9 +74,24 @@ function Form() {
     [lat, lng]
   );
 
+  /** Create new city on Add */
   function handleSubmit(e) {
     /** prevent hard reload */
     e.preventDefault();
+
+    if (!cityName || !date) return;
+
+    /** remember that if key is equal to value var name key, is equal to key: value */
+    const newCity = {
+      cityName,
+      country,
+      emoji,
+      date,
+      notes,
+      position: { lat, lng },
+    };
+
+    createCity(newCity);
   }
 
   if (isLoadingGeocoding) return <Spinner />;

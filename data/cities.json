@@ -35,6 +35,18 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Weymouth",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2023-10-06T16:28:00.659Z",
+      "notes": "Freshwater bay",
+      "position": {
+        "lat": "50.54179934084488",
+        "lng": "-2.4362182617187504"
+      },
+      "id": 98443198
     }
   ]
 }
