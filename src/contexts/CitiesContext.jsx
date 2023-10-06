@@ -5,6 +5,7 @@ const BASE_URL = 'http://localhost:9000';
 const CitiesContext = createContext();
 
 function CitiesProvider({ children }) {
+  /** going to combine these 3 states into a reducer */
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCity, setCurrentCity] = useState({});
