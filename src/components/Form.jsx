@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { useCities } from '../contexts/CitiesContext';
+import { useNavigate } from 'react-router-dom';
 import { useUrlPosition } from '../hooks/useUrlPosition';
 import styles from './Form.module.css';
 import Button from './Button';
 import BackButton from './BackButton';
 import Message from './Message';
 import Spinner from './Spinner';
-import { useCities } from '../contexts/CitiesContext';
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -24,7 +25,8 @@ const BASE_URL = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
 
 function Form() {
   const [lat, lng] = useUrlPosition();
-  const { createCity } = useCities();
+  const { createCity, isLoading: cityApiLoading } = useCities();
+  const navigate = useNavigate();
 
   /** we are using useState alot and usereducer might make sense but setup is for demonstration */
   const [isLoadingGeocoding, setIsLoadingGeocoding] = useState(false);
@@ -74,8 +76,10 @@ function Form() {
     [lat, lng]
   );
 
-  /** Create new city on Add */
-  function handleSubmit(e) {
+  /** Create new city on Add
+   *  handler functions can be async
+   */
+  async function handleSubmit(e) {
     /** prevent hard reload */
     e.preventDefault();
 
@@ -91,7 +95,11 @@ function Form() {
       position: { lat, lng },
     };
 
-    createCity(newCity);
+    /** since in an async we can await createCity before navigating back to cities */
+    await createCity(newCity);
+    /** programatically navigate back to cities
+     *  where we should see the newly added city */
+    navigate('/app/cities');
   }
 
   if (isLoadingGeocoding) return <Spinner />;
@@ -100,7 +108,10 @@ function Form() {
   if (geocodingError) return <Message message={geocodingError} />;
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={`${styles.form} ${cityApiLoading ? styles.loading : ''}`}
+      onSubmit={handleSubmit}
+    >
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
