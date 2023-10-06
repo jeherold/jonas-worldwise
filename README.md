@@ -562,3 +562,28 @@ export { CitiesProvider, useCities };
 
 - Using Fake Authentication with one user for this project
 - Will implement real authentication in a future lecture.
+
+# useContext
+
+### Basic boilerplate example that most all context will use
+
+```jsx
+import { createContext, useContext } from 'react';
+
+const AuthContext = createContext();
+
+function AuthProvider({ children }) {
+  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+}
+
+/** custom hook for consumers to use to get access to context */
+function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined)
+    throw new Error('AuthContext was used outside of AuthProvider');
+
+  return context;
+}
+
+export { AuthProvider, useAuth };
+```
