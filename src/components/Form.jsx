@@ -128,7 +128,7 @@ function Form() {
           id="date"
           onChange={(date) => setDate(date)}
           selected={date}
-          dateFormat="MM//dd/yyyy"
+          dateFormat="MM/dd/yyyy"
         />
       </div>
 
