@@ -49,18 +49,6 @@
       "id": 98443201
     },
     {
-      "cityName": "Valdemanco del Esteras",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2023-10-06T16:59:59.417Z",
-      "notes": "",
-      "position": {
-        "lat": "38.92522904714054",
-        "lng": "-4.768066406250001"
-      },
-      "id": 98443202
-    },
-    {
       "cityName": "Bouti Sayah",
       "country": "Algeria",
       "emoji": "🇩🇿",
@@ -107,6 +95,42 @@
         "lng": "126.38671875000001"
       },
       "id": 98443206
+    },
+    {
+      "cityName": "Aberdeen",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2023-10-06T17:05:00.390Z",
+      "notes": "",
+      "position": {
+        "lat": "57.052681978717494",
+        "lng": "-2.96630859375"
+      },
+      "id": 98443208
+    },
+    {
+      "cityName": "Ilulissat",
+      "country": "Greenland",
+      "emoji": "🇬🇱",
+      "date": "2023-10-06T17:06:26.272Z",
+      "notes": "",
+      "position": {
+        "lat": "73.72659470212253",
+        "lng": "-44.6484375"
+      },
+      "id": 98443209
+    },
+    {
+      "cityName": "Longyearbyen",
+      "country": "Norway",
+      "emoji": "🇳🇴",
+      "date": "2023-10-06T17:06:35.232Z",
+      "notes": "",
+      "position": {
+        "lat": "79.17133464081945",
+        "lng": "18.281250000000004"
+      },
+      "id": 98443210
     }
   ]
 }
