@@ -47,12 +47,14 @@ function reducer(state, action) {
         ...state,
         isLoading: false,
         cities: [...state.cities, action.payload],
+        currentCity: action.payload,
       };
     case 'city/deleted':
       return {
         ...state,
         isLoading: false,
         cities: state.cities.filter((city) => city.id !== action.payload),
+        currentCity: {},
       };
     case 'rejected':
       return {
@@ -70,7 +72,7 @@ function CitiesProvider({ children }) {
    *  - dispatch will take the place of all the locations we used setState
    */
   /** destructure state immediately into the state vars */
-  const [{ cities, isLoading, currentCity }, dispatch] = useReducer(
+  const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -98,6 +100,12 @@ function CitiesProvider({ children }) {
   }, []);
 
   async function getCity(id) {
+    /** check if current city id is same as the id of getCity
+     *  - dont call the api if it is already the current city
+     *  - remember that id is coming from url and url params will always be a string
+     */
+    if (Number(id) === currentCity.id) return;
+
     dispatch({ type: 'loading' });
     try {
       const res = await fetch(`${BASE_URL}/cities/${id}`);
@@ -158,6 +166,7 @@ function CitiesProvider({ children }) {
         cities,
         isLoading,
         currentCity,
+        error,
         getCity,
         createCity,
         deleteCity,

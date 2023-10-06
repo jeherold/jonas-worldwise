@@ -339,3 +339,221 @@ Do this in the indexed route to do more of a redirect so we get this: http://loc
 - typical use cases
 - fetch data from an external source (api graphQl etc)
 - synchronize map data as we used with leaflet setting position on component mounting or updates to lat/lng
+
+# useReducer to handle all business logic for managing state setup
+
+/\*\* should handle all the business logic
+
+- - put as much logic as possible inside the reducer
+- - so we have a central place that handles all the business logic
+- - and all the states transitions
+- But reducers must be pure functions - cannot do api requests inside reducer so
+- after the data has been received from fetch call we can then dispatch actions to the reducer
+  \*/
+
+### NOTES
+
+- 2 options we have for passing down the value into our context
+- async data has 2 options
+
+1.  pass in all the state plus the dispatch function into the value
+
+- then we can use the dispatch function inside the components to update state
+- however since we are working with asynchronous data we cannot have all the logic inside the reducer
+- you could set up all the async function logic in the comp that will use it but that is not really what we want to keep the components clean.
+
+2. 2nd option is to not pass the async function into the context but instead to use inside the event handler functions - this is the current setup we have in CitiesContext file
+
+2b. IF we were NOT dealing with asyn functions would be better to pass the dispatch function in the value and let the components handle the dispatch themselves.
+
+### Huge advantage of central place for state handling - With reducer structure in place makes it easy implement some more related state updates.
+
+- for example - when a new city is created we can easily make it the active state in that switch case
+
+```jsx
+import { createContext, useContext, useEffect, useReducer } from 'react';
+
+const BASE_URL = 'http://localhost:9000';
+
+const CitiesContext = createContext();
+
+/** holds the initial useState values when separately assigned in useState */
+const initialState = {
+  cities: [],
+  isLoading: false,
+  currentCity: {},
+  error: '',
+};
+
+/** should handle all the business logic
+ *  - put as much logic as possible inside the reducer
+ *  - so we have a central place that handles all the business logic
+ *  - and all the states transitions
+ *  But reducers must be pure functions - cannot do api requests inside reducer so
+ *    after the data has been received from fetch call we can then dispatch actions to the reducer
+ */
+function reducer(state, action) {
+  /** model actions as events (and not setters) is convention like so */
+  switch (action.type) {
+    case 'loading':
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case 'cities/loaded':
+      return {
+        ...state,
+        isLoading: false,
+        cities: action.payload,
+      };
+    case 'city/loaded':
+      return {
+        ...state,
+        isLoading: false,
+        currentCity: action.payload,
+      };
+    case 'city/created':
+      /** will handle update ui state to match server action with react query later
+       *  - updating manually for now with -- cities: [...state.cities, action.payload],
+       */
+      return {
+        ...state,
+        isLoading: false,
+        cities: [...state.cities, action.payload],
+      };
+    case 'city/deleted':
+      return {
+        ...state,
+        isLoading: false,
+        cities: state.cities.filter((city) => city.id !== action.payload),
+      };
+    case 'rejected':
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      throw new Error('unknown action type');
+  }
+}
+
+function CitiesProvider({ children }) {
+  /** [state, dispatch] equates to [state, setState] in useState() hook
+   *  - dispatch will take the place of all the locations we used setState
+   */
+  /** destructure state immediately into the state vars */
+  const [{ cities, isLoading, currentCity }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+  /** going to combine these 3 states into a reducer */
+  // const [cities, setCities] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [currentCity, setCurrentCity] = useState({});
+
+  useEffect(function () {
+    async function fetchCities() {
+      dispatch({ type: 'loading' });
+      try {
+        const res = await fetch(`${BASE_URL}/cities`);
+        const data = await res.json();
+        dispatch({ type: 'cities/loaded', payload: data });
+      } catch {
+        /** just using this way to handle error for small app and demonstration */
+        dispatch({
+          type: 'rejected',
+          payload: 'There was an error fetching cities...',
+        });
+      }
+    }
+    fetchCities();
+  }, []);
+
+  /** The following are event handlers setup in context to keep comp clean and all our fetch/mutation logic around a particular endpoint together - passed as provider value -
+   *  getCity,
+      createCity,
+      deleteCity,
+   */
+  async function getCity(id) {
+    dispatch({ type: 'loading' });
+    try {
+      const res = await fetch(`${BASE_URL}/cities/${id}`);
+      const data = await res.json();
+      dispatch({ type: 'city/loaded', payload: data });
+    } catch {
+      /** just using this way to handle error for small app and demonstration */
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error fetching city...',
+      });
+    }
+  }
+
+  /** Specify options object since this will be a POST - mutate the remote/server state (db) */
+  async function createCity(newCity) {
+    dispatch({ type: 'loading' });
+    try {
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: 'POST',
+        body: JSON.stringify(newCity),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+      dispatch({ type: 'city/created', payload: data });
+    } catch {
+      /** just using this way to handle error for small app and demonstration */
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error creating new city...',
+      });
+    }
+  }
+
+  async function deleteCity(id) {
+    dispatch({ type: 'loading' });
+    try {
+      /** dont need to store the res of a DELETE */
+      await fetch(`${BASE_URL}/cities/${id}`, {
+        method: 'DELETE',
+      });
+
+      dispatch({ type: 'city/deleted', payload: id });
+    } catch {
+      /** just using this way to handle error for small app and demonstration */
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error deleting city...',
+      });
+    }
+  }
+
+  return (
+    <CitiesContext.Provider
+      value={{
+        cities,
+        isLoading,
+        currentCity,
+        getCity,
+        createCity,
+        deleteCity,
+      }}
+    >
+      {children}
+    </CitiesContext.Provider>
+  );
+}
+
+/** Custom hook for the consumers */
+function useCities() {
+  const context = useContext(CitiesContext);
+  if (context === undefined) {
+    throw new Error('useCities used out of scope');
+  }
+  return context;
+}
+
+export { CitiesProvider, useCities };
+```
