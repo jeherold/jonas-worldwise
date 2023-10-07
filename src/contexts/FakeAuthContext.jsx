@@ -6,7 +6,7 @@ import { createContext, useContext, useReducer } from "react";
 const FAKE_USER = {
   name: "Jack",
   email: "jack@example.com",
-  password: "qwerty",
+  password: "fakePasswordQuerty",
   avatar: "https://i.pravatar.cc/100?u=zz",
 };
 
@@ -15,6 +15,7 @@ const AuthContext = createContext();
 const initialState = {
   user: null,
   isAuthenticated: false,
+  authError: "",
 };
 
 function reducer(state, action) {
@@ -25,12 +26,12 @@ function reducer(state, action) {
     case "logout":
       return { ...state, user: null, isAuthenticated: false };
     default:
-      throw new Error("Unknow action");
+      return { ...state, authError: "Unknow action" };
   }
 }
 
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated }, dispatch] = useReducer(
+  const [{ user, isAuthenticated, authError }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -53,6 +54,7 @@ function AuthProvider({ children }) {
         isAuthenticated,
         login,
         logout,
+        authError,
       }}
     >
       {children}
