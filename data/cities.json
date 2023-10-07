@@ -37,42 +37,6 @@
       "id": 98443202
     },
     {
-      "cityName": "Nicosia",
-      "country": "Cyprus",
-      "emoji": "🇨🇾",
-      "date": "2023-10-06T18:43:27.553Z",
-      "notes": "",
-      "position": {
-        "lat": "35.110921809704756",
-        "lng": "33.35449218750001"
-      },
-      "id": 98443205
-    },
-    {
-      "cityName": "Kuryk",
-      "country": "Kazakhstan",
-      "emoji": "🇰🇿",
-      "date": "2023-10-06T23:46:50.866Z",
-      "notes": "",
-      "position": {
-        "lat": "43.65723785609794",
-        "lng": "53.06873215588467"
-      },
-      "id": 98443206
-    },
-    {
-      "cityName": "Al Khafsah",
-      "country": "Syrian Arab Republic (the)",
-      "emoji": "🇸🇾",
-      "date": "2023-10-06T23:47:42.538Z",
-      "notes": "",
-      "position": {
-        "lat": "35.69685947160986",
-        "lng": "38.136081357476364"
-      },
-      "id": 98443207
-    },
-    {
       "cityName": "Giza",
       "country": "Egypt",
       "emoji": "🇪🇬",
