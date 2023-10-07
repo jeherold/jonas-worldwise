@@ -37,18 +37,6 @@
       "id": 98443202
     },
     {
-      "cityName": "Giza",
-      "country": "Egypt",
-      "emoji": "🇪🇬",
-      "date": "2023-10-06T23:47:58.177Z",
-      "notes": "",
-      "position": {
-        "lat": "29.556780250902136",
-        "lng": "29.958848334635118"
-      },
-      "id": 98443208
-    },
-    {
       "cityName": "Hot Springs",
       "country": "United States of America (the)",
       "emoji": "🇺🇸",
@@ -61,18 +49,6 @@
       "id": 98443209
     },
     {
-      "cityName": "Agudo",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2023-10-07T22:05:53.980Z",
-      "notes": "",
-      "position": {
-        "lat": "38.99646002182585",
-        "lng": "-4.747058859500937"
-      },
-      "id": 98443210
-    },
-    {
       "cityName": "Winchester",
       "country": "United States of America (the)",
       "emoji": "🇺🇸",
@@ -83,6 +59,18 @@
         "lng": "-84.20238961562877"
       },
       "id": 98443211
+    },
+    {
+      "cityName": "Daneborg",
+      "country": "Greenland",
+      "emoji": "🇬🇱",
+      "date": "2023-10-07T22:12:40.768Z",
+      "notes": "",
+      "position": {
+        "lat": "74.86784478537874",
+        "lng": "-38.683184207789886"
+      },
+      "id": 98443212
     }
   ]
 }
