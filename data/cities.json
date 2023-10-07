@@ -37,30 +37,6 @@
       "id": 98443202
     },
     {
-      "cityName": "Baie des Anges",
-      "country": "France",
-      "emoji": "🇫🇷",
-      "date": "2023-10-06T18:10:58.507Z",
-      "notes": "",
-      "position": {
-        "lat": "43.6599240747891",
-        "lng": "7.250976562500001"
-      },
-      "id": 98443203
-    },
-    {
-      "cityName": "Broummana",
-      "country": "Lebanon",
-      "emoji": "🇱🇧",
-      "date": "2023-10-06T18:43:12.900Z",
-      "notes": "",
-      "position": {
-        "lat": "33.868135032968624",
-        "lng": "35.62866210937501"
-      },
-      "id": 98443204
-    },
-    {
       "cityName": "Nicosia",
       "country": "Cyprus",
       "emoji": "🇨🇾",
@@ -71,6 +47,54 @@
         "lng": "33.35449218750001"
       },
       "id": 98443205
+    },
+    {
+      "cityName": "Kuryk",
+      "country": "Kazakhstan",
+      "emoji": "🇰🇿",
+      "date": "2023-10-06T23:46:50.866Z",
+      "notes": "",
+      "position": {
+        "lat": "43.65723785609794",
+        "lng": "53.06873215588467"
+      },
+      "id": 98443206
+    },
+    {
+      "cityName": "Al Khafsah",
+      "country": "Syrian Arab Republic (the)",
+      "emoji": "🇸🇾",
+      "date": "2023-10-06T23:47:42.538Z",
+      "notes": "",
+      "position": {
+        "lat": "35.69685947160986",
+        "lng": "38.136081357476364"
+      },
+      "id": 98443207
+    },
+    {
+      "cityName": "Giza",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2023-10-06T23:47:58.177Z",
+      "notes": "",
+      "position": {
+        "lat": "29.556780250902136",
+        "lng": "29.958848334635118"
+      },
+      "id": 98443208
+    },
+    {
+      "cityName": "Hot Springs",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2023-10-06T23:59:52.076Z",
+      "notes": "",
+      "position": {
+        "lat": "34.487647309293806",
+        "lng": "-93.01632433707316"
+      },
+      "id": 98443209
     }
   ]
 }

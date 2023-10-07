@@ -40,9 +40,9 @@ Create a file called the following to extend vite eslint to work with react esli
 In vite.config.js - vslint plugin to the array of plugins
 
 ```js
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import eslint from 'vite-plugin-eslint';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import eslint from "vite-plugin-eslint";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -59,10 +59,10 @@ npm i react-router-dom
 ### How to set up BrowserRouter with routes
 
 ```js
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Product from './pages/Product';
-import Pricing from './pages/Pricing';
-import Homepage from './pages/Homepage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Product from "./pages/Product";
+import Pricing from "./pages/Pricing";
+import Homepage from "./pages/Homepage";
 
 function App() {
   return (
@@ -84,10 +84,10 @@ export default App;
 - if content above the router outlet - the above content will always display on the page above the components displayed in the BrowserRouter section
 
 ```js
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Product from './pages/Product';
-import Pricing from './pages/Pricing';
-import Homepage from './pages/Homepage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Product from "./pages/Product";
+import Pricing from "./pages/Pricing";
+import Homepage from "./pages/Homepage";
 
 function App() {
   return (
@@ -116,7 +116,7 @@ export default App;
 #### to take advantage of the built in NavLink features of React Router - it will add active class to active page
 
 ```js
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 function PageNav() {
   return (
@@ -174,14 +174,14 @@ export default PageNav;
   app/ with no matching children will display the index element
 
 ```jsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Product from './pages/Product';
-import Pricing from './pages/Pricing';
-import HomePage from './pages/Homepage';
-import PageNotFound from './pages/PageNotFound';
-import AppLayout from './pages/AppLayout';
-import Login from './pages/Login';
-import CityList from './components/CityList';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Product from "./pages/Product";
+import Pricing from "./pages/Pricing";
+import HomePage from "./pages/Homepage";
+import PageNotFound from "./pages/PageNotFound";
+import AppLayout from "./pages/AppLayout";
+import Login from "./pages/Login";
+import CityList from "./components/CityList";
 
 function App() {
   return (
@@ -211,11 +211,11 @@ export default App;
 - use Router Outlet component for positioning nested routes on the parent component
 
 ```js
-import AppNav from './AppNav';
-import Logo from '../components/Logo';
-import styles from './Sidebar.module.css';
-import Footer from './Footer';
-import { Outlet } from 'react-router-dom';
+import AppNav from "./AppNav";
+import Logo from "../components/Logo";
+import styles from "./Sidebar.module.css";
+import Footer from "./Footer";
+import { Outlet } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -351,6 +351,9 @@ Do this in the indexed route to do more of a redirect so we get this: http://loc
 - after the data has been received from fetch call we can then dispatch actions to the reducer
   \*/
 
+  - when 2 state variables will always be updated at the same time is another good use case like handling authentication for user and isAuthenicated
+  - i.e - const [{user, isAuthenticated}, dispatch] = useReducer(reducer, initialState)
+
 ### NOTES
 
 - 2 options we have for passing down the value into our context
@@ -371,9 +374,9 @@ Do this in the indexed route to do more of a redirect so we get this: http://loc
 - for example - when a new city is created we can easily make it the active state in that switch case
 
 ```jsx
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useContext, useEffect, useReducer } from "react";
 
-const BASE_URL = 'http://localhost:9000';
+const BASE_URL = "http://localhost:9000";
 
 const CitiesContext = createContext();
 
@@ -382,7 +385,7 @@ const initialState = {
   cities: [],
   isLoading: false,
   currentCity: {},
-  error: '',
+  error: "",
 };
 
 /** should handle all the business logic
@@ -395,24 +398,24 @@ const initialState = {
 function reducer(state, action) {
   /** model actions as events (and not setters) is convention like so */
   switch (action.type) {
-    case 'loading':
+    case "loading":
       return {
         ...state,
         isLoading: true,
       };
-    case 'cities/loaded':
+    case "cities/loaded":
       return {
         ...state,
         isLoading: false,
         cities: action.payload,
       };
-    case 'city/loaded':
+    case "city/loaded":
       return {
         ...state,
         isLoading: false,
         currentCity: action.payload,
       };
-    case 'city/created':
+    case "city/created":
       /** will handle update ui state to match server action with react query later
        *  - updating manually for now with -- cities: [...state.cities, action.payload],
        */
@@ -421,20 +424,20 @@ function reducer(state, action) {
         isLoading: false,
         cities: [...state.cities, action.payload],
       };
-    case 'city/deleted':
+    case "city/deleted":
       return {
         ...state,
         isLoading: false,
         cities: state.cities.filter((city) => city.id !== action.payload),
       };
-    case 'rejected':
+    case "rejected":
       return {
         ...state,
         isLoading: false,
         error: action.payload,
       };
     default:
-      throw new Error('unknown action type');
+      throw new Error("unknown action type");
   }
 }
 
@@ -454,16 +457,16 @@ function CitiesProvider({ children }) {
 
   useEffect(function () {
     async function fetchCities() {
-      dispatch({ type: 'loading' });
+      dispatch({ type: "loading" });
       try {
         const res = await fetch(`${BASE_URL}/cities`);
         const data = await res.json();
-        dispatch({ type: 'cities/loaded', payload: data });
+        dispatch({ type: "cities/loaded", payload: data });
       } catch {
         /** just using this way to handle error for small app and demonstration */
         dispatch({
-          type: 'rejected',
-          payload: 'There was an error fetching cities...',
+          type: "rejected",
+          payload: "There was an error fetching cities...",
         });
       }
     }
@@ -476,56 +479,56 @@ function CitiesProvider({ children }) {
       deleteCity,
    */
   async function getCity(id) {
-    dispatch({ type: 'loading' });
+    dispatch({ type: "loading" });
     try {
       const res = await fetch(`${BASE_URL}/cities/${id}`);
       const data = await res.json();
-      dispatch({ type: 'city/loaded', payload: data });
+      dispatch({ type: "city/loaded", payload: data });
     } catch {
       /** just using this way to handle error for small app and demonstration */
       dispatch({
-        type: 'rejected',
-        payload: 'There was an error fetching city...',
+        type: "rejected",
+        payload: "There was an error fetching city...",
       });
     }
   }
 
   /** Specify options object since this will be a POST - mutate the remote/server state (db) */
   async function createCity(newCity) {
-    dispatch({ type: 'loading' });
+    dispatch({ type: "loading" });
     try {
       const res = await fetch(`${BASE_URL}/cities`, {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(newCity),
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       const data = await res.json();
-      dispatch({ type: 'city/created', payload: data });
+      dispatch({ type: "city/created", payload: data });
     } catch {
       /** just using this way to handle error for small app and demonstration */
       dispatch({
-        type: 'rejected',
-        payload: 'There was an error creating new city...',
+        type: "rejected",
+        payload: "There was an error creating new city...",
       });
     }
   }
 
   async function deleteCity(id) {
-    dispatch({ type: 'loading' });
+    dispatch({ type: "loading" });
     try {
       /** dont need to store the res of a DELETE */
       await fetch(`${BASE_URL}/cities/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
-      dispatch({ type: 'city/deleted', payload: id });
+      dispatch({ type: "city/deleted", payload: id });
     } catch {
       /** just using this way to handle error for small app and demonstration */
       dispatch({
-        type: 'rejected',
-        payload: 'There was an error deleting city...',
+        type: "rejected",
+        payload: "There was an error deleting city...",
       });
     }
   }
@@ -550,7 +553,7 @@ function CitiesProvider({ children }) {
 function useCities() {
   const context = useContext(CitiesContext);
   if (context === undefined) {
-    throw new Error('useCities used out of scope');
+    throw new Error("useCities used out of scope");
   }
   return context;
 }
@@ -568,7 +571,7 @@ export { CitiesProvider, useCities };
 ### Basic boilerplate example that most all context will use
 
 ```jsx
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 const AuthContext = createContext();
 
@@ -580,7 +583,7 @@ function AuthProvider({ children }) {
 function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined)
-    throw new Error('AuthContext was used outside of AuthProvider');
+    throw new Error("AuthContext was used outside of AuthProvider");
 
   return context;
 }
