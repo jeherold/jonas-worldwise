@@ -25,8 +25,10 @@ function City() {
     function () {
       getCity(id);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [id]
+    /** getCity actually updates the state and will cause infinite loop in this use-case if not stablized
+     *  - cant remove from dependency arr so solution is to make this function stable with useCallback in context file
+     */
+    [id, getCity]
   );
 
   const { cityName, emoji, date, notes } = currentCity;

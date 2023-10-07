@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react';
 
 const BASE_URL = 'http://localhost:9000';
 
@@ -99,26 +105,32 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
-  async function getCity(id) {
-    /** check if current city id is same as the id of getCity
-     *  - dont call the api if it is already the current city
-     *  - remember that id is coming from url and url params will always be a string
-     */
-    if (Number(id) === currentCity.id) return;
+  /** real world use case for using useCallback so not an infinite loop where this is used in City.jsx useEffect
+   *  and is required in the dependency array there.
+   */
+  const getCity = useCallback(
+    async function getCity(id) {
+      /** check if current city id is same as the id of getCity
+       *  - dont call the api if it is already the current city
+       *  - remember that id is coming from url and url params will always be a string
+       */
+      if (Number(id) === currentCity.id) return;
 
-    dispatch({ type: 'loading' });
-    try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await res.json();
-      dispatch({ type: 'city/loaded', payload: data });
-    } catch {
-      /** just using this way to handle error for small app and demonstration */
-      dispatch({
-        type: 'rejected',
-        payload: 'There was an error fetching city...',
-      });
-    }
-  }
+      dispatch({ type: 'loading' });
+      try {
+        const res = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await res.json();
+        dispatch({ type: 'city/loaded', payload: data });
+      } catch {
+        /** just using this way to handle error for small app and demonstration */
+        dispatch({
+          type: 'rejected',
+          payload: 'There was an error fetching city...',
+        });
+      }
+    },
+    [currentCity.id]
+  );
 
   /** Specify options object since this will be a POST - mutate the remote/server state (db) */
   async function createCity(newCity) {
@@ -160,6 +172,7 @@ function CitiesProvider({ children }) {
     }
   }
 
+  /** no need to memoize this value since nonthing above in the comp tree that would cause re-render */
   return (
     <CitiesContext.Provider
       value={{
